@@ -1,0 +1,18 @@
+<mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="loginForm" >
+              <mat-form-field appearance="outline">
+              <input matInput placeholder="Stream Key" formControlName="streamKey" name="streamKey">
+              <mat-error *ngIf="loginForm.get('streamKey')?.hasError('required')">This field is required</mat-error>  
+            </mat-form-field>
+
+      </form>
+      <!-- <mat-spinner [style.display]="showSpinner ? 'block' : 'none'"></mat-spinner> -->
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button (click)="onSubmit()" color="primary">Login</button>
+    </mat-card-actions>
+  </mat-card>
