@@ -28,7 +28,7 @@ export class LoginComponent {
       if(this.loginForm.invalid){
         this.loginForm.markAllAsTouched()
       }else{
-        this.signalrService.createRoom(this.loginForm.get('streamKey')?.value)
+        //this.signalrService.createRoom(this.loginForm.get('streamKey')?.value)
         this.router.navigate(['main-layout'])
       }
     }

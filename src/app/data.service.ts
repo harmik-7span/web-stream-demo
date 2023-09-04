@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket';
+import { environment } from 'src/environments/environment';
 
 export interface Message {
     type: string;
@@ -32,7 +33,7 @@ export class DataService {
     }
     private getNewWebSocket(): WebSocketSubject<any> {
         return webSocket({
-            url: 'ws://localhost:8081',
+            url: environment.wsEndpoint,
             openObserver: {
                 next: () => {
                     console.log('[DataService]: connection ok');

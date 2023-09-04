@@ -27,13 +27,13 @@ import { DataService } from './data.service';
     
   ],
   providers: [
-    // SignalrService,
-    // {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: (signalrService: SignalrService) => () => signalrService.initiateSignalrConnection(),
-    //   deps: [SignalrService],
-    //   multi: true,
-    // }
+    SignalrService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (signalrService: SignalrService) => () => signalrService.initiateSignalrConnection(),
+      deps: [SignalrService],
+      multi: true,
+    },
     DataService
   ],
   bootstrap: [AppComponent]

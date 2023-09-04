@@ -10,7 +10,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
   @ViewChild('local_video') localVideo!: ElementRef;
   @ViewChild('received_video') remoteVideo!: ElementRef;
   peerConn: any;
-  localStream!: MediaStream
+  localStream!: MediaStream;
+  tempLocalStream!: any;
   inCall: boolean = false;
   offerOptions = {
     offerToReceiveAudio: true,
@@ -162,7 +163,10 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
 
   gotStream(stream: any) {
     console.log('getUserMedia video stream URL:', stream);
+    
     this.localStream = stream;
+    this.tempLocalStream =  stream.clone();
+    console.log(this.tempLocalStream,this.localStream);
     this.localStream.getAudioTracks().forEach(function (track) {
       track.enabled = false;
     });
@@ -173,8 +177,8 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
     this.createPeerConnection();
 
     // Add the tracks from the local stream to the RTCPeerConnection
-    this.localStream.getTracks().forEach(
-      track => this.peerConn.addTrack(track, this.localStream)
+    this.tempLocalStream.getTracks().forEach(
+      (track:any) => this.peerConn.addTrack(track, this.tempLocalStream)
     );
 
     try {
@@ -250,7 +254,6 @@ export class MainLayoutComponent implements OnInit, AfterViewInit {
 
   private handleTrackEvent = (event: RTCTrackEvent) => {
     console.log('remote', event);
-    
     this.remoteVideo.nativeElement.srcObject = event.streams[0];
   }
 
